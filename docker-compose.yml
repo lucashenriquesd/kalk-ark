@@ -7,9 +7,9 @@ services:
     tty: true
     ports:
       - "9000:9000"
-    working_dir: /usr/share/nginx/html
+    working_dir: /var/www
     volumes:
-      - ./app/backend/:/usr/share/nginx/html
+      - ./app/:/var/www
     #   - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - skelark-network
@@ -23,9 +23,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    working_dir: /usr/share/nginx/html
+    working_dir: /var/www
     volumes:
-      - ./app/backend/:/usr/share/nginx/html
+      - ./app/:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - skelark-network
