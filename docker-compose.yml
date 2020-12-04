@@ -2,7 +2,8 @@ version: '3.8'
 services:
 
   php7:
-    image: php:7.4-fpm-alpine3.12
+    container_name: php7
+    build: php/
     # restart: unless-stopped
     tty: true
     ports:
@@ -12,12 +13,13 @@ services:
       - ./app/:/var/www
     #   - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - skelark-network
+      - vagaspub-network
     depends_on: 
       - mysql
 
   nginx:
-    image: nginx:1.19-alpine
+    container_name: nginx
+    build: nginx/
     # restart: unless-stopped
     tty: true
     ports:
@@ -28,27 +30,29 @@ services:
       - ./app/:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - skelark-network
+      - vagaspub-network
     depends_on:
       - php7
 
   mysql:
-    image: mysql:5.7
+    container_name: mysql
+    build: mysql/
     # restart: unless-stopped
     tty: true
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: skelark
-      MYSQL_ROOT_PASSWORD: skelark
+      MYSQL_DATABASE: vagaspub
+      MYSQL_ROOT_PASSWORD: vagaspub
+      # MYSQL_ROOT_HOST: '%'
     volumes:
-      - db-data:/var/lib/mysql/
+      - ./mysql/db-data:/var/lib/mysql/
       # - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - skelark-network
+      - vagaspub-network
 
 networks:
-  skelark-network:
+  vagaspub-network:
     driver: bridge
 
 volumes:

@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use App\Models\Job;
+
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -16,3 +19,13 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+// $router->get('/user/{id}', ['middleware' => 'auth', function (Request $request, $id) {
+//     return 'User: ' . $request->user();
+// }]);
+
+$router->get('/jobs', [function (Request $request) {
+    return Job::all();
+}]);
+
+$router->post('jobs', 'JobController@store');
