@@ -24,8 +24,13 @@ $router->get('/', function () use ($router) {
 //     return 'User: ' . $request->user();
 // }]);
 
-$router->get('/jobs', [function (Request $request) {
-    return Job::all();
-}]);
+
+$router->get('jobs', 'JobController@index');
 
 $router->post('jobs', 'JobController@store');
+
+$router->get('jobs/{id}', 'JobController@show');
+
+$router->put('jobs/{id}', 'JobController@update');
+
+$router->delete('jobs/{id}', 'JobController@destroy');

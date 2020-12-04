@@ -17,12 +17,17 @@ class JobController extends Controller
         //
     }
 
+    public function index() 
+    {
+        return Job::all();
+    }
+
     public function store(Request $request) 
     {
         $this->validate($request, [
             'title' => 'required|max:256|string',
             'description' => 'required|max:10000|string',
-            'status' => 'required',
+            'status' => 'in:enable,disabled',
             'workplace' => 'nullable|string',
             'salary' => 'nullable|numeric',
         ]);
@@ -38,5 +43,32 @@ class JobController extends Controller
         $job->save();
         
         return $job;
+    }
+
+    public function show($id) 
+    {
+        return job::find($id);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $job = job::find($id);
+    
+        $job->title = $request->title;
+        $job->description = $request->description;
+        $job->status = $request->status;
+        $job->workplace = $request->workplace;
+        $job->salary = $request->salary;
+    
+        $job->save();
+        
+        return $job;
+    }
+
+    public function destroy($id) 
+    {
+        job::find($id)->delete();
+
+        return "$id deleted";
     }
 }
