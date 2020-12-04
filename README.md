@@ -18,6 +18,8 @@ Use Postman or equivalent on the following routes
 
 *Routes
 
+Postman collection is in the root folder, import it or manually add based on the config below
+
 - Show all jobs: GET http://127.0.0.1/jobs
 - Add a job: POST http://127.0.0.1/jobs
     You will need to send a 'form' data of:
@@ -26,6 +28,9 @@ Use Postman or equivalent on the following routes
         'status' => 'required',// enabled or disabled. Enabled by default
         'workplace' => 'nullable|string',
         'salary' => 'nullable|numeric',
+- Show a job: GET http://127.0.0.1/jobs/{id}
+- Update a job: PUT http://127.0.0.1/jobs/{id}
+- Delete a job: DELETE http://127.0.0.1/jobs/{id}
 
 * How was used in this project
 
