@@ -24,13 +24,22 @@ $router->get('/', function () use ($router) {
 //     return 'User: ' . $request->user();
 // }]);
 
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->post('jobs', 'JobController@store');
+
+    $router->put('jobs/{id}', 'JobController@update');
+
+    $router->delete('jobs/{id}', 'JobController@destroy');
+
+    $router->get('users', 'UserController@index');
+
+    $router->get('users/profile', 'UserController@profile');
+
+    $router->post('users', 'UserController@store');
+
+    $router->put('users/{id}', 'UserController@update');
+});
 
 $router->get('jobs', 'JobController@index');
 
-$router->post('jobs', 'JobController@store');
-
 $router->get('jobs/{id}', 'JobController@show');
-
-$router->put('jobs/{id}', 'JobController@update');
-
-$router->delete('jobs/{id}', 'JobController@destroy');

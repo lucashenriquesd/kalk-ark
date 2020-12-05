@@ -69,6 +69,6 @@ class JobController extends Controller
     {
         job::find($id)->delete();
 
-        return "$id deleted";
+        return "job $id deleted";
     }
 }
