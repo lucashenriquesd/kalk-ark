@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Models\Job;
+use Illuminate\Support\Facades\Crypt;
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
@@ -37,7 +37,15 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     $router->post('users', 'UserController@store');
 
+    $router->put('users/change-my-apitoken', 'UserController@changeMyAPIToken');
+
+    $router->put('users/change-user-apitoken/{id}', 'UserController@changeUserAPIToken');
+
     $router->put('users/{id}', 'UserController@update');
+});
+
+$router->get('crypt/{random32chars}', function ($random32chars) {
+    return response()->json(['body' => Crypt::encrypt($random32chars)]);
 });
 
 $router->get('jobs', 'JobController@index');
