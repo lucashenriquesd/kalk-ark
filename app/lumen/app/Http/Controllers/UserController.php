@@ -28,6 +28,11 @@ class UserController extends Controller
         return Auth::user();
     }
 
+    public function login(Request $request)
+    {
+        return User::where('api_token', $request->header('api-token'))->first();
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

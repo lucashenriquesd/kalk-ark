@@ -12,7 +12,13 @@ class ExampleTest extends TestCase
      */
     public function testExample()
     {
-        $this->get('/');
+        // $this->get('/');
+
+        // $response = $this->withHeaders([
+        //     'app-token' => env('APP_TOKEN'),
+        // ])->json('GET', '/');
+
+        $this->json('GET', '/', [null], ['app-token' => env('APP_TOKEN')]);
 
         $this->assertEquals(
             $this->app->version(), $this->response->getContent()

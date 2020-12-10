@@ -20,10 +20,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// $router->get('/user/{id}', ['middleware' => 'auth', function (Request $request, $id) {
-//     return 'User: ' . $request->user();
-// }]);
-
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('jobs', 'JobController@store');
 
@@ -34,6 +30,8 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('users', 'UserController@index');
 
     $router->get('users/profile', 'UserController@profile');
+
+    $router->post('users/login', 'UserController@login');
 
     $router->post('users', 'UserController@store');
 

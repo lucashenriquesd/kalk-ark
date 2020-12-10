@@ -30,10 +30,6 @@ class AuthServiceProvider extends ServiceProvider
         // should return either a User instance or null. You're free to obtain
         // the User instance via an API token or any other method necessary.
 
-        Gate::define('edit-settings', function ($user) {
-            return $user->isAdmin;
-        });
-
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->header('api-token')) {
                 return User::where('api_token', $request->header('api-token'))->first();
