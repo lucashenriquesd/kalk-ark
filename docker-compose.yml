@@ -1,38 +1,71 @@
 version: '3.8'
 services:
 
-  php7:
-    container_name: php7
-    build: php/
-    # restart: unless-stopped
-    tty: true
-    ports:
-      - "9000:9000"
-    working_dir: /var/www
-    volumes:
-      - ./app/:/var/www
-    #   - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - vagaspub-network
-    depends_on: 
-      - mysql
-
-  nginx:
-    container_name: nginx
+  api-gateway-laravel8-nginx:
+    container_name: api-gateway-laravel8-nginx
     build: nginx/
     # restart: unless-stopped
     tty: true
     ports:
       - "80:80"
       - "443:443"
-    working_dir: /var/www
+    working_dir: /var/www/api-gateway-laravel
     volumes:
-      - ./app/:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./systems/api-gateway-laravel/:/var/www/api-gateway-laravel
+      - ./nginx/api-gateway-laravel/conf.d/:/etc/nginx/conf.d/
     networks:
-      - vagaspub-network
+      - skelark-network
     depends_on:
-      - php7
+      - api-gateway-laravel8-php7
+
+  ms-files-lumen8-nginx:
+    container_name: ms-files-lumen8-nginx
+    build: nginx/
+    # restart: unless-stopped
+    tty: true
+    ports:
+      - "81:80"
+      - "444:443"
+    working_dir: /var/www/ms-files-lumen
+    volumes:
+      - ./systems/ms-files-lumen/:/var/www/ms-files-lumen
+      - ./nginx/ms-files-lumen/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - skelark-network
+    depends_on:
+      - ms-files-lumen8-php7
+
+  api-gateway-laravel8-php7:
+    container_name: api-gateway-laravel8-php7
+    build: php/
+    # restart: unless-stopped
+    tty: true
+    ports:
+      - "9000:9000"
+    working_dir: /var/www/api-gateway-laravel
+    volumes:
+      - ./systems/api-gateway-laravel/:/var/www/api-gateway-laravel
+    #   - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - skelark-network
+    depends_on: 
+      - mysql
+
+  ms-files-lumen8-php7:
+    container_name: ms-files-lumen8-php7
+    build: php/
+    # restart: unless-stopped
+    tty: true
+    ports:
+      - "9001:9000"
+    working_dir: /var/www/ms-files-lumen
+    volumes:
+      - ./systems/ms-files-lumen/:/var/www/ms-files-lumen
+    #   - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - skelark-network
+    depends_on: 
+      - mysql
 
   mysql:
     container_name: mysql
@@ -42,17 +75,17 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: vagaspub
-      MYSQL_ROOT_PASSWORD: vagaspub
+      MYSQL_DATABASE: skelark
+      MYSQL_ROOT_PASSWORD: skelark
       # MYSQL_ROOT_HOST: '%'
     volumes:
       - ./mysql/db-data:/var/lib/mysql/
       # - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - vagaspub-network
+      - skelark-network
 
 networks:
-  vagaspub-network:
+  skelark-network:
     driver: bridge
 
 volumes:
