@@ -49,7 +49,7 @@ services:
     networks:
       - skelark-network
     depends_on: 
-      - mysql
+      - api-gateway-laravel8-mysql57
 
   ms-files-lumen8-php7:
     container_name: ms-files-lumen8-php7
@@ -65,21 +65,40 @@ services:
     networks:
       - skelark-network
     depends_on: 
-      - mysql
+      - ms-files-lumen8-mysql57
 
-  mysql:
-    container_name: mysql
+  api-gateway-laravel8-mysql57:
+    container_name: api-gateway-laravel8-mysql57
     build: mysql/
     # restart: unless-stopped
     tty: true
     ports:
       - "3306:3306"
+    working_dir: /var/lib/mysql
     environment:
       MYSQL_DATABASE: skelark
       MYSQL_ROOT_PASSWORD: skelark
       # MYSQL_ROOT_HOST: '%'
     volumes:
-      - ./mysql/db-data:/var/lib/mysql/
+      - ./mysql/api-gateway-laravel-db-data:/var/lib/mysql/
+      # - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - skelark-network
+
+  ms-files-lumen8-mysql57:
+    container_name: ms-files-lumen8-mysql57
+    build: mysql/
+    # restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
+    working_dir: /var/lib/mysql
+    environment:
+      MYSQL_DATABASE: skelark
+      MYSQL_ROOT_PASSWORD: skelark
+      # MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./mysql/ms-files-lumen-db-data:/var/lib/mysql/
       # - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - skelark-network
