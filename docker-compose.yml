@@ -7,8 +7,8 @@ services:
     # restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
-      - "443:443"
+      - "8000:80"
+      - "4043:443"
     working_dir: /var/www/api-gateway-laravel
     volumes:
       - ./systems/api-gateway-laravel/:/var/www/api-gateway-laravel
@@ -24,8 +24,8 @@ services:
     # restart: unless-stopped
     tty: true
     ports:
-      - "81:80"
-      - "444:443"
+      - "8001:80"
+      - "4044:443"
     working_dir: /var/www/ms-files-lumen
     volumes:
       - ./systems/ms-files-lumen/:/var/www/ms-files-lumen
@@ -41,8 +41,8 @@ services:
     # restart: unless-stopped
     tty: true
     ports:
-      - "82:80"
-      - "445:443"
+      - "8002:80"
+      - "4045:443"
     working_dir: /var/www/ms-calculator-lumen
     volumes:
       - ./systems/ms-calculator-lumen/:/var/www/ms-calculator-lumen
@@ -105,6 +105,7 @@ services:
     build: mysql/
     # restart: unless-stopped
     tty: true
+    user: "1000:50"
     ports:
       - "3306:3306"
     working_dir: /var/lib/mysql
@@ -123,6 +124,7 @@ services:
     build: mysql/
     # restart: unless-stopped
     tty: true
+    user: "1000:50"
     ports:
       - "3307:3306"
     working_dir: /var/lib/mysql
@@ -141,6 +143,7 @@ services:
     build: mysql/
     # restart: unless-stopped
     tty: true
+    user: "1000:50"
     ports:
       - "3308:3306"
     working_dir: /var/lib/mysql
