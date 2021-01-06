@@ -50,7 +50,7 @@ services:
     networks:
       - skelark-network
     depends_on:
-      - ms-calculator-lumen8-php7
+      - ms-calculator-lumen8-php8
 
   api-gateway-laravel8-php7:
     container_name: api-gateway-laravel8-php7
@@ -84,9 +84,9 @@ services:
     depends_on: 
       - ms-files-lumen8-mysql57
 
-  ms-calculator-lumen8-php7:
-    container_name: ms-calculator-lumen8-php7
-    build: php/
+  ms-calculator-lumen8-php8:
+    container_name: ms-calculator-lumen8-php8
+    build: php/v8/
     # restart: unless-stopped
     tty: true
     ports:
