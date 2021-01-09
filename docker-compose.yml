@@ -157,15 +157,15 @@ services:
     networks:
       - skelark-network
 
-  next10-node15:
-    container_name: next10-node15
+  front-calculator-nextjs10-node15:
+    container_name: front-calculator-nextjs10-node15
     build: node/
     tty: true
     ports:
       - "3000:3000"
-    working_dir: /var/www/next10-node15
+    working_dir: /var/www/front-calculator-nextjs10
     volumes:
-      - ./systems/next10-node15/:/var/www/next10-node15
+      - ./systems/front-calculator-nextjs10/:/var/www/front-calculator-nextjs10
     networks:
       - skelark-network
 
