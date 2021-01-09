@@ -157,6 +157,18 @@ services:
     networks:
       - skelark-network
 
+  next10-node15:
+    container_name: next10-node15
+    build: node/
+    tty: true
+    ports:
+      - "3000:3000"
+    working_dir: /var/www/next10-node15
+    volumes:
+      - ./systems/next10-node15/:/var/www/next10-node15
+    networks:
+      - skelark-network
+
 networks:
   skelark-network:
     driver: bridge
