@@ -66,7 +66,7 @@ services:
     networks:
       - skelark-network
     depends_on: 
-      - api-gateway-laravel8-mysql57
+      - api-gateway-laravel8-mariadb10
 
   ms-files-lumen8-php7:
     container_name: ms-files-lumen8-php7
@@ -82,7 +82,7 @@ services:
     networks:
       - skelark-network
     depends_on: 
-      - ms-files-lumen8-mysql57
+      - ms-files-lumen8-mariadb10
 
   ms-calculator-lumen8-php8:
     container_name: ms-calculator-lumen8-php8
@@ -98,10 +98,10 @@ services:
     networks:
       - skelark-network
     depends_on: 
-      - ms-calculator-lumen8-mysql57
+      - ms-calculator-lumen8-mariadb10
 
-  api-gateway-laravel8-mysql57:
-    container_name: api-gateway-laravel8-mysql57
+  api-gateway-laravel8-mariadb10:
+    container_name: api-gateway-laravel8-mariadb10
     build: mysql/
     # restart: unless-stopped
     tty: true
@@ -119,8 +119,8 @@ services:
     networks:
       - skelark-network
 
-  ms-files-lumen8-mysql57:
-    container_name: ms-files-lumen8-mysql57
+  ms-files-lumen8-mariadb10:
+    container_name: ms-files-lumen8-mariadb10
     build: mysql/
     # restart: unless-stopped
     tty: true
@@ -138,8 +138,8 @@ services:
     networks:
       - skelark-network
 
-  ms-calculator-lumen8-mysql57:
-    container_name: ms-calculator-lumen8-mysql57
+  ms-calculator-lumen8-mariadb10:
+    container_name: ms-calculator-lumen8-mariadb10
     build: mysql/
     # restart: unless-stopped
     tty: true
@@ -163,9 +163,9 @@ services:
     tty: true
     ports:
       - "3000:3000"
-    working_dir: /var/www/front-calculator-nextjs10
+    working_dir: /var/www/front-calculator-nextjs
     volumes:
-      - ./systems/front-calculator-nextjs10/:/var/www/front-calculator-nextjs10
+      - ./systems/front-calculator-nextjs/:/var/www/front-calculator-nextjs
     networks:
       - skelark-network
 
